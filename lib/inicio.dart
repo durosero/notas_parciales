@@ -23,7 +23,7 @@ class _InicioState extends State<Inicio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Caca'),
+        title: Text('Notas Parciales'),
       ),
       body: Center(
         child: Container(
@@ -102,20 +102,19 @@ class _InicioState extends State<Inicio> {
           return AlertDialog(
             title: Text("Definitiva: " + calcularDef().toString()),
             content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
               _tabla(),
-              Text("Debe sacar: " + calculaFinal(calcularDef()).toString())
+              Container(height: 10.0,),
+              Text("Nota mínima para aprobar: " + calculaFinal(calcularDef()).toString(),style: TextStyle(color: Color(0xffe65100)),)
             ],),
             actions: <Widget>[
               FlatButton(
-                  child: Text("Cancel"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-              FlatButton(
                 child: Text("Guardar"),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               )
             ],
           );
@@ -133,19 +132,19 @@ class _InicioState extends State<Inicio> {
       ],
       rows: <DataRow>[
         DataRow(cells: [
-          DataCell(Text(p1.text)),
+          DataCell(Text(p1.text,style: TextStyle(fontWeight: FontWeight.bold))),
           DataCell(Text("30%")),
-          DataCell(Text("$tp1"))
+          DataCell(Text("$tp1",style: TextStyle(color: Color(0xff00acc1))))
         ]),
         DataRow(cells: [
-          DataCell(Text(p2.text)),
+          DataCell(Text(p2.text,style: TextStyle(fontWeight: FontWeight.bold))),
           DataCell(Text("30%")),
-          DataCell(Text("$tp2"))
+          DataCell(Text("$tp2",style: TextStyle(color: Color(0xff00acc1)),))
         ]),
         DataRow(cells: [
-          DataCell(Text(p3.text)),
+          DataCell(Text(p3.text,style: TextStyle(fontWeight: FontWeight.bold))),
           DataCell(Text("40%")),
-          DataCell(Text("$tp3"))
+          DataCell(Text("$tp3",style: TextStyle(color: Color(0xff00acc1))))
         ]),
       ],
     );
@@ -173,7 +172,7 @@ class _InicioState extends State<Inicio> {
     double contador = 0.0;
     while(total<3.0){
       contador = contador + 0.1;
-      total = def +(contador*0.4);
+      total = roundDouble(def +(contador*0.4),2);
     }
     return roundDouble(contador,2);
 
